@@ -1,104 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Family Scoreboard</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f7f7f7;
-      padding: 20px;
-      text-align: center;
-    }
-    h1 {
-      margin-bottom: 20px;
-    }
-    .person {
-      background: white;
-      padding: 20px;
-      margin: 15px auto;
-      width: 250px;
-      border-radius: 10px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-    .name {
-      font-size: 20px;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-    .points {
-      font-size: 28px;
-      margin-bottom: 10px;
-    }
-    button {
-      padding: 8px 14px;
-      margin: 5px;
-      font-size: 16px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    .add {
-      background: #4caf50;
-      color: white;
-    }
-    .subtract {
-      background: #e53935;
-      color: white;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Merit/Demerit Scoreboard</title>
+<style>
+  body { font-family: Arial, sans-serif; text-align: center; margin: 20px; }
+  table { margin: 0 auto; border-collapse: collapse; }
+  th, td { padding: 10px 20px; border: 1px solid #333; }
+  button { padding: 5px 10px; margin: 0 5px; }
+</style>
 </head>
 <body>
-  <h1>Family Points Scoreboard</h1>
+<h1>Merit/Demerit Scoreboard</h1>
 
-  <div id="scoreboard"></div>
-
-  <script>
-    const people = ["Steve", "Jess", "Stephen", "Luke"];
-
-    let scores = JSON.parse(localStorage.getItem("familyScores")) || {
-      Steve: 0,
-      Jess: 0,
-      Stephen: 0,
-      Luke: 0
-    };
-
-    function updateDisplay() {
-      const board = document.getElementById("scoreboard");
-      board.innerHTML = "";
-
-      people.forEach(person => {
-        const container = document.createElement("div");
-        container.className = "person";
-
-        container.innerHTML = `
-          <div class="name">${person}</div>
-          <div class="points" id="points-${person}">${scores[person]}</div>
-          <button class="add" onclick="addPoint('${person}')">+1</button>
-          <button class="subtract" onclick="subtractPoint('${person}')">-1</button>
-        `;
-
-        board.appendChild(container);
-      });
-    }
-
-    function addPoint(person) {
-      scores[person]++;
-      saveAndRefresh();
-    }
-
-    function subtractPoint(person) {
-      scores[person]--;
-      saveAndRefresh();
-    }
-
-    function saveAndRefresh() {
-      localStorage.setItem("familyScores", JSON.stringify(scores));
-      updateDisplay();
-    }
-
-    updateDisplay();
-  </script>
-</body>
-</html>
+<table id="scoreboard">
+  <tr>
+    <th>Name</th>
+    <th>Score</th>
+    <th>Actions</th>
+  </tr>
+  <tr>
+    <td>Alice</td>
+    <td>0</td>
+    <td>
+      <button onclick="addPoint(this)">+1</button>
+      <button onclick="subtractPoint(this)">-1</button>
+    </td>
+  </tr>
+  <tr>
+    <td>Bob</td>
+    <td>0</td>
+    <td>
+      <button onclick="addPoint(this)">+1</button>
+      <button onclick="subtractPoint(this)">-1</button>
+    </td>
+  </tr>
+  <tr>
+    <td>Charlie</td>
+    <td>0</td>
+    <td>
+      <button onclick="addPoint(this)">+1</button>
+      <button onclick="subtractPoin
