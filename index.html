@@ -12,7 +12,7 @@
 </style>
 </head>
 <body>
-<h1>Family Merit/Demerit Scoreboard </h1>
+<h1>Family Merit/Demerit Scoreboard</h1>
 
 <table id="scoreboard">
   <tr>
@@ -55,18 +55,33 @@
 </table>
 
 <script>
+// Initialize scores from localStorage
+const rows = document.querySelectorAll("#scoreboard tr");
+rows.forEach((row, index) => {
+  if (index === 0) return; // skip header
+  const name = row.cells[0].textContent;
+  const storedScore = localStorage.getItem(name);
+  if (storedScore !== null) {
+    row.cells[1].textContent = storedScore;
+  }
+});
+
+// Update scores
 function addPoint(button) {
   const row = button.parentElement.parentElement;
   const scoreCell = row.cells[1];
+  const name = row.cells[0].textContent;
   scoreCell.textContent = parseInt(scoreCell.textContent) + 1;
+  localStorage.setItem(name, scoreCell.textContent);
 }
 
 function subtractPoint(button) {
   const row = button.parentElement.parentElement;
   const scoreCell = row.cells[1];
+  const name = row.cells[0].textContent;
   scoreCell.textContent = parseInt(scoreCell.textContent) - 1;
+  localStorage.setItem(name, scoreCell.textContent);
 }
 </script>
 </body>
 </html>
-
