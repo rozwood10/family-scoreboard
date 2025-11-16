@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Merit/Demerit Scoreboard</title>
+<title>Family Merit/Demerit Scoreboard</title>
 <style>
   body { font-family: Arial, sans-serif; text-align: center; margin: 20px; }
   table { margin: 0 auto; border-collapse: collapse; }
@@ -12,13 +12,21 @@
 </style>
 </head>
 <body>
-<h1>Merit/Demerit Scoreboard</h1>
+<h1>Family Merit/Demerit Scoreboard</h1>
 
 <table id="scoreboard">
   <tr>
     <th>Name</th>
     <th>Score</th>
     <th>Actions</th>
+  </tr>
+  <tr>
+    <td>Luke</td>
+    <td>0</td>
+    <td>
+      <button onclick="addPoint(this)">+1</button>
+      <button onclick="subtractPoint(this)">-1</button>
+    </td>
   </tr>
   <tr>
     <td>Stephen</td>
@@ -37,10 +45,27 @@
     </td>
   </tr>
   <tr>
-    <td>Luke</td>
+    <td>Mom</td>
     <td>0</td>
     <td>
       <button onclick="addPoint(this)">+1</button>
-      <button onclick="subtractPoin
+      <button onclick="subtractPoint(this)">-1</button>
+    </td>
+  </tr>
+</table>
 
+<script>
+function addPoint(button) {
+  const row = button.parentElement.parentElement;
+  const scoreCell = row.cells[1];
+  scoreCell.textContent = parseInt(scoreCell.textContent) + 1;
+}
 
+function subtractPoint(button) {
+  const row = button.parentElement.parentElement;
+  const scoreCell = row.cells[1];
+  scoreCell.textContent = parseInt(scoreCell.textContent) - 1;
+}
+</script>
+</body>
+</html>
