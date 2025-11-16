@@ -12,7 +12,7 @@
 </style>
 </head>
 <body>
-<h1>Family Merit/Demerit Scoreboard </h1>
+<h1>Family Merit/Demerit Scoreboard</h1>
 
 <table id="scoreboard">
   <tr>
@@ -24,65 +24,66 @@
     <td>Luke</td>
     <td>0</td>
     <td>
-      <button onclick="addPoint(this)">+1</button>
-      <button onclick="subtractPoint(this)">-1</button>
+      <button onclick="updateScore(this,1)">+1</button>
+      <button onclick="updateScore(this,-1)">-1</button>
     </td>
   </tr>
   <tr>
     <td>Stephen</td>
     <td>0</td>
     <td>
-      <button onclick="addPoint(this)">+1</button>
-      <button onclick="subtractPoint(this)">-1</button>
+      <button onclick="updateScore(this,1)">+1</button>
+      <button onclick="updateScore(this,-1)">-1</button>
     </td>
   </tr>
   <tr>
     <td>Dad</td>
     <td>0</td>
     <td>
-      <button onclick="addPoint(this)">+1</button>
-      <button onclick="subtractPoint(this)">-1</button>
+      <button onclick="updateScore(this,1)">+1</button>
+      <button onclick="updateScore(this,-1)">-1</button>
     </td>
   </tr>
   <tr>
     <td>Mom</td>
     <td>0</td>
     <td>
-      <button onclick="addPoint(this)">+1</button>
-      <button onclick="subtractPoint(this)">-1</button>
+      <button onclick="updateScore(this,1)">+1</button>
+      <button onclick="updateScore(this,-1)">-1</button>
     </td>
   </tr>
 </table>
 
 <script>
-// Initialize scores from localStorage
-const rows = document.querySelectorAll("#scoreboard tr");
-rows.forEach((row, index) => {
-  if (index === 0) return; // skip header
-  const name = row.cells[0].textContent;
-  const storedScore = localStorage.getItem(name);
-  if (storedScore !== null) {
-    row.cells[1].textContent = storedScore;
-  }
-});
-
-// Update scores
-function addPoint(button) {
-  const row = button.parentElement.parentElement;
-  const scoreCell = row.cells[1];
-  const name = row.cells[0].textContent;
-  scoreCell.textContent = parseInt(scoreCell.textContent) + 1;
-  localStorage.setItem(name, scoreCell.textContent);
+// Helper function to safely get/set scores in localStorage
+function getScore(name) {
+  let score = localStorage.getItem(name);
+  return score !== null ? parseInt(score) : 0;
 }
 
-function subtractPoint(button) {
+function setScore(name, value) {
+  localStorage.setItem(name, value);
+}
+
+// Initialize scores on page load
+document.addEventListener("DOMContentLoaded", () => {
+  const rows = document.querySelectorAll("#scoreboard tr");
+  rows.forEach((row,index) => {
+    if(index===0) return; // skip header
+    const name = row.cells[0].textContent;
+    row.cells[1].textContent = getScore(name);
+  });
+});
+
+// Update score function for +1/-1 buttons
+function updateScore(button, change) {
   const row = button.parentElement.parentElement;
-  const scoreCell = row.cells[1];
   const name = row.cells[0].textContent;
-  scoreCell.textContent = parseInt(scoreCell.textContent) - 1;
-  localStorage.setItem(name, scoreCell.textContent);
+  let score = getScore(name);
+  score += change;
+  row.cells[1].textContent = score;
+  setScore(name, score);
 }
 </script>
 </body>
 </html>
-
